@@ -6,4 +6,4 @@
 	url = https://github.com/google/googletest.git
 [submodule "third-party/ulog"]
 	path = third-party/ulog
-	url = git@github.com:ly-east/ulog
+	url = https://github.com/ly-east/ulog.git
