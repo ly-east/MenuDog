@@ -1,2 +1,9 @@
 # MenuDog
 May MenuDog(aka My New Dog lol) guard your context menu on Windows
+
+# For Developers
+
+``` git
+git submodule update --init --recursive
+```
+
