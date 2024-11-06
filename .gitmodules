@@ -1,0 +1,3 @@
+[submodule "third-party/ulog"]
+	path = third-party/ulog
+	url = git@github.com:ly-east/ulog
