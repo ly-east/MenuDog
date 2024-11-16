@@ -4,7 +4,7 @@ add_subdirectory(json)
 # gtest
 
 set(BUILD_GMOCK OFF)
-set(GOOGLETEST_VERSION "1.15.2")
+set(INSTALL_GTEST OFF)
 set(GTEST_LIB gtest gtest_main)
 
 add_subdirectory(gtest)
