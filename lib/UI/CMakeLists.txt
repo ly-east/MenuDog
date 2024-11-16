@@ -24,7 +24,7 @@ qt_add_executable(MenuDog
 
   ${UI_HEADERS}
 
-  # ${CMAKE_SOURCE_DIR}/lib/UI/Resource/rsrc.rc
+  ${CMAKE_SOURCE_DIR}/lib/UI/Resource/Loading.qrc
 )
 
 # Qt components
@@ -70,7 +70,7 @@ install(TARGETS MenuDog
 
 install(SCRIPT ${deploy_script})
 
-install(FILES
-  ${HANDLER_WINDOW_PATH}
-  DESTINATION ${CMAKE_INSTALL_PREFIX}
-)
+# install(FILES
+#   ${HANDLER_WINDOW_PATH}
+#   DESTINATION ${CMAKE_INSTALL_PREFIX}
+# )
