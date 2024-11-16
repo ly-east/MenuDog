@@ -1,6 +1,8 @@
-set(CMAKE_PREFIX_PATH "/opt/work/qt6/6.5.3/gcc_64/")
-list(APPEND CMAKE_PREFIX_PATH "D:/qt/6.5.3/msvc2019_64/lib/cmake")
-find_package(Qt6 "6.5" REQUIRED COMPONENTS Core Widgets)
+find_package(Qt6 "6.5"
+  REQUIRED COMPONENTS Core Widgets
+  PATHS "D:/qt/6.5.3/msvc2019_64/lib/cmake"
+)
+
 qt_standard_project_setup()
 
 if (POLICY CMP0087)
