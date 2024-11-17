@@ -16,12 +16,15 @@ list(APPEND CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_SOURCE_DIR}/lib/UI/Layout)
 
 qt_wrap_ui(UI_HEADERS
   ${CMAKE_SOURCE_DIR}/lib/UI/Layout/Loading.ui
+  ${CMAKE_SOURCE_DIR}/lib/UI/Layout/MenuDog.ui
 )
 
 qt_add_executable(MenuDog
   ${CMAKE_SOURCE_DIR}/include/UI/Loading.h
+  ${CMAKE_SOURCE_DIR}/include/UI/MenuDog.h
 
   Loading.cpp
+  MenuDog.cpp
   main.cpp
 
   ${UI_HEADERS}
