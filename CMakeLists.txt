@@ -7,6 +7,12 @@ endif (POLICY CMP0091)
 
 project(MenuDog VERSION 0.1.0 LANGUAGES CXX)
 
+configure_file(
+  ${CMAKE_SOURCE_DIR}/include/Version.h.in
+  ${CMAKE_SOURCE_DIR}/include/Version.h
+  @ONLY
+)
+
 set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/output)
 set(CMAKE_INSTALL_BINDIR ".")
 set(CMAKE_INSTALL_LIBDIR ".")
