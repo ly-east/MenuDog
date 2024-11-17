@@ -1,3 +1,4 @@
+add_subdirectory(ucrash)
 add_subdirectory(ulog)
 add_subdirectory(json)
 

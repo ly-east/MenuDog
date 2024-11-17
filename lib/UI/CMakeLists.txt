@@ -33,11 +33,13 @@ qt_add_executable(MenuDog
 
 target_include_directories(MenuDog PUBLIC
   ${CMAKE_SOURCE_DIR}/include
+  ${CMAKE_SOURCE_DIR}/third-party/ucrash/include
   ${CMAKE_SOURCE_DIR}/third-party/ulog/include
   ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 target_link_libraries(MenuDog PRIVATE
+  ucrash
   ulog
   Qt::Gui
   Qt::Widgets
@@ -50,10 +52,10 @@ endif()
 set(deploy_tool_options_arg "--pdb --no-opengl-sw")
 
 # build handler before MenuDog
-# add_dependencies(MenuDog handler)
+add_dependencies(MenuDog handler)
 
 # set path to crash handler
-set(HANDLER_WINDOW_PATH "${CMAKE_BINARY_DIR}/third-party/crashpad/handler/${CMAKE_BUILD_TYPE}/handler")
+set(HANDLER_WINDOW_PATH "${CMAKE_BINARY_DIR}/third-party/ucrash/third-party/crashpad/handler/${CMAKE_BUILD_TYPE}/handler")
 if(WIN32)
   string(CONCAT HANDLER_WINDOW_PATH ${HANDLER_WINDOW_PATH} ".exe")
 endif(WIN32)
@@ -72,7 +74,7 @@ install(TARGETS MenuDog
 
 install(SCRIPT ${deploy_script})
 
-# install(FILES
-#   ${HANDLER_WINDOW_PATH}
-#   DESTINATION ${CMAKE_INSTALL_PREFIX}
-# )
+install(FILES
+  ${HANDLER_WINDOW_PATH}
+  DESTINATION ${CMAKE_INSTALL_PREFIX}
+)

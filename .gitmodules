@@ -7,3 +7,6 @@
 [submodule "third-party/ulog"]
 	path = third-party/ulog
 	url = https://github.com/ly-east/ulog.git
+[submodule "third-party/ucrash"]
+	path = third-party/ucrash
+	url = https://github.com/ly-east/ucrash.git
