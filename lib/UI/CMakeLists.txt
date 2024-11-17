@@ -25,6 +25,7 @@ qt_add_executable(MenuDog
   ${UI_HEADERS}
 
   ${CMAKE_SOURCE_DIR}/lib/UI/Resource/Loading.qrc
+  ${CMAKE_SOURCE_DIR}/lib/UI/Resource/app.manifest
 )
 
 # Qt components
@@ -42,6 +43,11 @@ target_link_libraries(MenuDog PRIVATE
   Qt::Gui
   Qt::Widgets
 )
+if(WIN32)
+  SET_TARGET_PROPERTIES(MenuDog PROPERTIES
+    LINK_FLAGS "/MANIFESTUAC:\"level='requireAdministrator' uiAccess='false'\" /SUBSYSTEM:WINDOWS"
+  )
+endif(WIN32)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
   set_property(TARGET MenuDog PROPERTY WIN32_EXECUTABLE true)
