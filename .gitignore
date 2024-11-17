@@ -1,6 +1,7 @@
 build/
 out/
 output/
+.vs*/
 
 
 # C++ objects and libs
