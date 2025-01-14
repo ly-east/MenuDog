@@ -23,5 +23,7 @@ set(minQt6Version 6.5)
 
 find_package(Qt6 ${minQt6Version} REQUIRED COMPONENTS Core Widgets LinguistTools)
 
+enable_testing()
+
 add_subdirectory(lib)
 add_subdirectory(third-party)
