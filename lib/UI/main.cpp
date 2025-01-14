@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[]) {
   // set file logger
-  ulog::setFileLogger(spdlog::level::info, "MenuDog.log");
+  ulog::setFileLogger("MenuDog.log");
 
   // set crash handler
   if (!ucrash::setWindowHandler())
