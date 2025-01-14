@@ -19,5 +19,9 @@ set(CMAKE_INSTALL_LIBDIR ".")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(minQt6Version 6.5)
+
+find_package(Qt6 ${minQt6Version} REQUIRED COMPONENTS Core Widgets LinguistTools)
+
 add_subdirectory(lib)
 add_subdirectory(third-party)
