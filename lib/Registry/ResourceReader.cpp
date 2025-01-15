@@ -18,11 +18,15 @@ bool ResourceReader::splitResourceString(const QString &rsrc_str, QString &path,
     return false;
   }
 
+  // split by ','
+
   auto str_list = rsrc_str.split(comma);
   if (2 != str_list.size()) {
     ulg.error("splitResourceString: too many string({})", str_list.size());
     return false;
   }
+
+  // convert resource id to integer
 
   QString id_str = str_list.back();
   bool is_succeeded = false;
@@ -32,11 +36,12 @@ bool ResourceReader::splitResourceString(const QString &rsrc_str, QString &path,
     return false;
   }
 
+  // ignore leading '@' if exists
+
   path = str_list.front();
   if (path.startsWith('@'))
     path = path.sliced(1, path.size() - 1);
 
   return true;
 }
-
 } // namespace registry
