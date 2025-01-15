@@ -3,6 +3,7 @@ set(HEADER_PATH ${CMAKE_SOURCE_DIR}/include/Registry)
 add_library(MenuDogRegistry STATIC
   # headers
   ${HEADER_PATH}/ContextMenu.h
+  ${HEADER_PATH}/Regex.h
   ${HEADER_PATH}/ResourceReader.h
 
   # sources
