@@ -11,9 +11,12 @@ target_include_directories(tester
 )
 
 target_link_libraries(tester
-  MenuDogRegistry
+PRIVATE
   Qt::Core
   Qt::CorePrivate
+  Qt::Gui
+PUBLIC
+  MenuDogRegistry
   gtest
   gtest_main
   ulog
