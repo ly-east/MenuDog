@@ -32,7 +32,9 @@ bool ResourceReader::splitResourceString(const QString &rsrc_str, QString &path,
     return false;
   }
 
-  path = str_list.front(); // TODO: skip leading '@'
+  path = str_list.front();
+  if (path.startsWith('@'))
+    path = path.sliced(1, path.size() - 1);
 
   return true;
 }
