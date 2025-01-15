@@ -11,7 +11,9 @@ add_library(MenuDogRegistry STATIC
 target_include_directories(MenuDogRegistry PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
 target_link_libraries(MenuDogRegistry
+PRIVATE
   Qt::Core
   Qt::CorePrivate
+  Qt::Gui
   ulog
 )

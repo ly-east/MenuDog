@@ -1,8 +1,8 @@
 #ifndef REGISTRY_RESOURCEREADER_H
 #define REGISTRY_RESOURCEREADER_H
 
+#include <QIcon>
 #include <QString>
-#include <QVariant>
 #include <functional>
 
 namespace tester {
@@ -17,9 +17,12 @@ public:
   static QString getString(const QString &rsrc_str);
 
 private:
-  friend class tester::ResourceReaderTest_splitResourceString_Test;
+  friend class tester::ResourceReaderTest_splitResourceString_Test; // for gtest
 
-  static QVariant getResource(const QString &path, int id);
+  // Extraction method of specific type of resource
+  using RsrcExtFuncTy = std::function<bool(void *, unsigned)>;
+
+  static bool getResource(const QString &rsrc_str, const RsrcExtFuncTy &func);
 
   static bool splitResourceString(const QString &rsrc_str, QString &path,
                                   int &id);
