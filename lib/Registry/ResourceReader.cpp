@@ -120,6 +120,9 @@ bool ResourceReader::splitResourceString(const QString &rsrc_str, QString &path,
   if (path.startsWith('@'))
     path = path.sliced(1, path.size() - 1);
 
+  // TODO: compatible with env var like "%SystemRoot%\System32\bdechangepin.exe"
+  // PathUnExpandEnvStringsW
+
   return true;
 }
 } // namespace registry
