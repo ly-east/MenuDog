@@ -1,5 +1,3 @@
-list(APPEND CMAKE_PREFIX_PATH "D:/qt/6.5.3/msvc2019_64/lib/cmake")
-
 find_package(Qt6 ${minQt6Version}  REQUIRED COMPONENTS Core Widgets)
 
 qt_standard_project_setup()
