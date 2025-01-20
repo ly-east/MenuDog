@@ -3,6 +3,7 @@ out/
 output/
 .vs*/
 
+include/Version.h
 
 # C++ objects and libs
 *.slo
