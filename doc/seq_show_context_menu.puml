@@ -1,0 +1,21 @@
+@startuml ShowContextMenu
+
+participant User
+participant UI
+participant MenuFactory
+participant PathProvider
+participant IconProvider
+
+User -> UI: Launch
+activate UI
+
+User -> UI: Specify object path
+UI -> MenuFactory: getMenu
+activate MenuFactory
+
+MenuFactory -> PathProvider: getPIDL
+activate PathProvider
+
+
+
+@enduml
