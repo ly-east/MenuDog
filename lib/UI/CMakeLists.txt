@@ -17,7 +17,9 @@ qt_wrap_ui(UI_HEADERS
 
 qt_add_executable(MenuDog
   ${CMAKE_SOURCE_DIR}/include/UI/MenuDog.h
+  ${CMAKE_SOURCE_DIR}/include/UI/LegacyMenu/LegacyMenuModel.h
 
+  ${CMAKE_SOURCE_DIR}/lib/UI/LegacyMenu/LegacyMenuModel.cpp
   MenuDog.cpp
   main.cpp
 
