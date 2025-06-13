@@ -1,7 +1,7 @@
 #include "UI/MenuDog.h"
-#include "ui_MenuDog.h"
-
+#include "UI/LegacyMenu/LegacyMenuModel.h"
 #include "Version.h"
+#include "ui_MenuDog.h"
 #include <QString>
 #include <QTableWidget>
 
@@ -14,9 +14,12 @@ MenuDog::MenuDog(QWidget *parent) : QMainWindow{parent}, ui{new Ui::MenuDog} {
 
   ui->statusbar->setSizeGripEnabled(false);
 
+  auto legacy_model = new LegacyMenuModel{this};
+  ui->legacy_menu->setModel(legacy_model);
+
   // hide win11 context table. functions related may be implemented in the
   // future
-  ui->menu_win11->hide();
+  ui->morden_menu->hide();
 
   // default tab
   ui->tabWidget->setCurrentIndex(0);

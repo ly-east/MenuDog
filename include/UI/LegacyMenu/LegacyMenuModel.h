@@ -2,6 +2,8 @@
 #define UI_LEGACYMENU_LEGACYMENUMODEL_H
 
 #include <QAbstractTableModel>
+#include <QString>
+#include <vector>
 
 class LegacyMenuModel : public QAbstractTableModel {
   Q_OBJECT
@@ -9,11 +11,15 @@ class LegacyMenuModel : public QAbstractTableModel {
 public:
   LegacyMenuModel(QObject *parent = nullptr);
 
+  enum class ColumnIndex : int { Box, Icon, Text };
+
 public:
-  int rowCount(const QModelIndex &parent = QModelIndex()) const override {}
+  int rowCount(const QModelIndex &parent = QModelIndex()) const override {
+    return (int)item_list.size();
+  }
 
   int columnCount(const QModelIndex &parent = QModelIndex()) const override {
-    return 3;
+    return 1 + (int)ColumnIndex::Text;
   }
 
   QVariant data(const QModelIndex &index,
@@ -25,6 +31,9 @@ public:
                int role = Qt::EditRole) override;
 
   Qt::ItemFlags flags(const QModelIndex &index) const override;
+
+private:
+  std::vector<QString> item_list; // string of each item
 };
 
 #endif // UI_LEGACYMENU_LEGACYMENUMODEL_H
