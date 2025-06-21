@@ -1,4 +1,22 @@
 #include "UI/LegacyMenu/LegacyMenuModel.h"
+#include "ulog/ulog.h"
+#include <ShlObj.h>
+
+namespace {
+bool listPath() {
+  IShellFolder *isf = nullptr;
+  HRESULT result = SHGetDesktopFolder(&isf);
+
+  [[_UNLIKELY]] if (S_OK != result) {
+    ulg.error("listPath: SHGetDesktopFolder error {}", result);
+    return false;
+  }
+
+  // TODO: use RAII to assure this
+  isf->Release();
+  return true;
+}
+} // namespace
 
 LegacyMenuModel::LegacyMenuModel(QObject *parent)
     : QAbstractTableModel{parent} {}
