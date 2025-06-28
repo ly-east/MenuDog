@@ -33,6 +33,9 @@ public:
   Qt::ItemFlags flags(const QModelIndex &index) const override;
 
 private:
+  bool listPath();
+
+private:
   std::vector<QString> item_list; // string of each item
 };
 
