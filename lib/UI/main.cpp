@@ -23,12 +23,12 @@ int main(int argc, char *argv[]) {
   // TODO: load CLSID
   splash.showMessage(QStringLiteral("Loading CLSID..."),
                      Qt::AlignHCenter | Qt::AlignBottom, Qt::white);
-  std::this_thread::sleep_for(std::chrono::seconds(3));
+  std::this_thread::sleep_for(std::chrono::seconds(1));
 
   // TODO: load rules
   splash.showMessage(QStringLiteral("Loading Rules..."),
                      Qt::AlignHCenter | Qt::AlignBottom, Qt::white);
-  std::this_thread::sleep_for(std::chrono::seconds(3));
+  std::this_thread::sleep_for(std::chrono::seconds(1));
 
   MenuDog md;
   md.show();
