@@ -67,8 +67,7 @@ bool LegacyMenuModel::listPath() {
   // GUID is also acceptible by display name.
   // usage: ::{CLSID for Control Panel}\::{CLSID for printers folder}
   // see MSDN document of `ParseDisplayName` for more information.
-  wchar_t display_name[] = L"D://work//";
-  ULONG eaten_length = 0;
+  wchar_t display_name[] = L"D:\\work\\";
   ITEMIDLIST *pidl = nullptr;
 
   isf->ParseDisplayName(nullptr, nullptr, display_name, &eaten_length, &pidl,
