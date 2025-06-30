@@ -70,12 +70,12 @@ bool LegacyMenuModel::listPath() {
   wchar_t display_name[] = L"D:\\work\\";
   ITEMIDLIST *pidl = nullptr;
 
-  isf->ParseDisplayName(nullptr, nullptr, display_name, &eaten_length, &pidl,
+  isf->ParseDisplayName(nullptr, nullptr, display_name, nullptr, &pidl,
                         nullptr);
   if (!check_result("ParseDisplayName", result))
     return false;
-  else if (!eaten_length || !pidl) {
-    ulg.error("ParseDisplayName: eaten {} pidl {}", eaten_length, (UINT64)pidl);
+  else if (!pidl) {
+    ulg.error("ParseDisplayName: pidl {}",  (UINT64)pidl);
     return false;
   }
 
@@ -97,8 +97,8 @@ bool LegacyMenuModel::listPath() {
 
     ITEMIDLIST *pidl = nullptr;
     ULONG celt_fetched = 0;
-    while (!list->Next(1, &pidl, &celt_fetched) && S_FALSE == celt_fetched) {
-      SHFILEINFOW info;
+    while (S_OK == list->Next(1, &pidl, &celt_fetched) && S_FALSE == celt_fetched) {
+      SHFILEINFOW info{};
       SHGetFileInfoW((LPCWSTR)pidl, 0, &info, sizeof(SHFILEINFOW),
                      SHGFI_PIDL | SHGFI_DISPLAYNAME | SHGFI_TYPENAME);
       item_list.emplace_back(QString::fromWCharArray(info.szDisplayName));
