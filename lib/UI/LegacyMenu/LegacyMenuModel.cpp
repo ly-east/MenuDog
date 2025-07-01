@@ -9,16 +9,23 @@ LegacyMenuModel::LegacyMenuModel(QObject *parent)
 }
 
 QVariant LegacyMenuModel::data(const QModelIndex &index, int role) const {
-  if (Qt::DisplayRole != role || item_list.empty())
+  auto column = static_cast<ColumnIndex>(index.column());
+  if (ColumnIndex::Text != column)
     return {};
-  return item_list[index.row()];
+
+  switch (role) {
+  case Qt::DisplayRole:
+    return item_list.empty() ? QString{} : item_list[index.row()];
+  default:
+    return {};
+  }
 }
 
 QVariant LegacyMenuModel::headerData(int section, Qt::Orientation orientation,
                                      int role) const {
   if (role == Qt::TextAlignmentRole)
     return QVariant{Qt::AlignHCenter | Qt::AlignVCenter};
-  else if (role != Qt::DisplayRole)
+  else if (role != Qt::DisplayRole || Qt::Orientation::Vertical == orientation)
     return {};
 
   auto index = static_cast<ColumnIndex>(section);
@@ -72,10 +79,11 @@ bool LegacyMenuModel::listPath() {
 
   isf->ParseDisplayName(nullptr, nullptr, display_name, nullptr, &pidl,
                         nullptr);
+  // SHParseDisplayName(display_name, nullptr, )
   if (!check_result("ParseDisplayName", result))
     return false;
   else if (!pidl) {
-    ulg.error("ParseDisplayName: pidl {}",  (UINT64)pidl);
+    ulg.error("ParseDisplayName: pidl {}", (UINT64)pidl);
     return false;
   }
 
@@ -97,7 +105,8 @@ bool LegacyMenuModel::listPath() {
 
     ITEMIDLIST *pidl = nullptr;
     ULONG celt_fetched = 0;
-    while (S_OK == list->Next(1, &pidl, &celt_fetched) && S_FALSE == celt_fetched) {
+    while (S_OK == list->Next(1, &pidl, &celt_fetched) &&
+           S_FALSE == celt_fetched) {
       SHFILEINFOW info{};
       SHGetFileInfoW((LPCWSTR)pidl, 0, &info, sizeof(SHFILEINFOW),
                      SHGFI_PIDL | SHGFI_DISPLAYNAME | SHGFI_TYPENAME);
