@@ -70,6 +70,7 @@ bool LegacyMenuModel::listPath() {
   HRESULT result = SHGetDesktopFolder(&isf);
   if (!check_result("SHGetDesktopFolder", result))
     return false;
+  auto isf_guard = qScopeGuard([isf]() { isf->Release(); });
 
   // GUID is also acceptible by display name.
   // usage: ::{CLSID for Control Panel}\::{CLSID for printers folder}
@@ -89,6 +90,7 @@ bool LegacyMenuModel::listPath() {
   isf->BindToObject(pidl, nullptr, IID_IShellFolder, (void **)&root);
   if (!check_result("BindToObject", result) || !root)
     return false;
+  auto root_guard = qScopeGuard([root]() { root->Release(); });
 
   auto path_walker = [this, root](HWND handle, bool is_folder) {
     IEnumIDList *list = nullptr;
@@ -114,10 +116,5 @@ bool LegacyMenuModel::listPath() {
 
   path_walker(nullptr, true);
   path_walker(nullptr, false);
-
-  // TODO: use RAII to assure this
-  isf->Release();
-  root->Release();
-
   return true;
 }
