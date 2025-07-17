@@ -77,9 +77,7 @@ bool LegacyMenuModel::listPath() {
   wchar_t display_name[] = L"D:\\work\\";
   ITEMIDLIST *pidl = nullptr;
 
-  isf->ParseDisplayName(nullptr, nullptr, display_name, nullptr, &pidl,
-                        nullptr);
-  // SHParseDisplayName(display_name, nullptr, )
+  SHParseDisplayName(display_name, nullptr, &pidl, 0, nullptr);
   if (!check_result("ParseDisplayName", result))
     return false;
   else if (!pidl) {
