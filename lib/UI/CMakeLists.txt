@@ -12,13 +12,18 @@ set(CMAKE_AUTOUIC ON)
 list(APPEND CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_SOURCE_DIR}/lib/UI/Layout)
 
 qt_wrap_ui(UI_HEADERS
+  ${CMAKE_SOURCE_DIR}/lib/UI/Layout/ContextMenuDialog.ui
   ${CMAKE_SOURCE_DIR}/lib/UI/Layout/MenuDog.ui
 )
 
 qt_add_executable(MenuDog
   ${CMAKE_SOURCE_DIR}/include/UI/MenuDog.h
+  ${CMAKE_SOURCE_DIR}/include/UI/ContextMenuDialog/ContextMenuDialog.h
+  ${CMAKE_SOURCE_DIR}/include/UI/ContextMenuDialog/ContextMenuModel.h
   ${CMAKE_SOURCE_DIR}/include/UI/LegacyMenu/LegacyMenuModel.h
 
+  ${CMAKE_SOURCE_DIR}/lib/UI/ContextMenuDialog/ContextMenuDialog.cpp
+  ${CMAKE_SOURCE_DIR}/lib/UI/ContextMenuDialog/ContextMenuModel.cpp
   ${CMAKE_SOURCE_DIR}/lib/UI/LegacyMenu/LegacyMenuModel.cpp
   MenuDog.cpp
   main.cpp
