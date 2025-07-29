@@ -15,7 +15,7 @@ QVariant LegacyMenuModel::data(const QModelIndex &index, int role) const {
 
   switch (role) {
   case Qt::DisplayRole:
-    return item_list.empty() ? QString{} : item_list[index.row()];
+    return item_list.empty() ? QString{} : item_list[index.row()].name;
   default:
     return {};
   }
@@ -110,7 +110,8 @@ bool LegacyMenuModel::listPath() {
       SHFILEINFOW info{};
       SHGetFileInfoW((LPCWSTR)pidl, 0, &info, sizeof(SHFILEINFOW),
                      SHGFI_PIDL | SHGFI_DISPLAYNAME | SHGFI_TYPENAME);
-      item_list.emplace_back(QString::fromWCharArray(info.szDisplayName));
+      FileInfo fi{QString::fromWCharArray(info.szDisplayName)};
+      item_list.emplace_back(std::move(fi));
     }
   };
 

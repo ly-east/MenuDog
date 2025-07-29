@@ -2,16 +2,14 @@
 #define UI_LEGACYMENU_LEGACYMENUMODEL_H
 
 #include <QAbstractTableModel>
+#include <QList>
 #include <QString>
-#include <vector>
 
 class LegacyMenuModel : public QAbstractTableModel {
   Q_OBJECT
 
 public:
   LegacyMenuModel(QObject *parent = nullptr);
-
-  enum class ColumnIndex : int { Box, Icon, Text };
 
 public:
   int rowCount(const QModelIndex &parent = QModelIndex()) const override {
@@ -33,10 +31,17 @@ public:
   Qt::ItemFlags flags(const QModelIndex &index) const override;
 
 private:
+  enum class ColumnIndex : int { Box, Icon, Text };
+
+  struct FileInfo {
+    QString name;
+  };
+
+private:
   bool listPath();
 
 private:
-  std::vector<QString> item_list; // string of each item
+  QList<FileInfo> item_list; // string of each item
 };
 
 #endif // UI_LEGACYMENU_LEGACYMENUMODEL_H
