@@ -60,7 +60,7 @@ Qt::ItemFlags LegacyMenuModel::flags(const QModelIndex &index) const {
 bool LegacyMenuModel::listPath() {
   auto check_result = [](const char *const caller, HRESULT result) -> bool {
     if (S_OK != result) {
-      ulg.error("listPath:  error {}", result);
+      ulg.error("listPath: {} error {}", caller, result);
       return false;
     }
     return true;
@@ -78,7 +78,7 @@ bool LegacyMenuModel::listPath() {
   wchar_t display_name[] = L"D:\\work\\";
   ITEMIDLIST *pidl = nullptr;
 
-  SHParseDisplayName(display_name, nullptr, &pidl, 0, nullptr);
+  result = SHParseDisplayName(display_name, nullptr, &pidl, 0, nullptr);
   if (!check_result("ParseDisplayName", result))
     return false;
   else if (!pidl) {
@@ -87,7 +87,7 @@ bool LegacyMenuModel::listPath() {
   }
 
   IShellFolder *root = nullptr;
-  isf->BindToObject(pidl, nullptr, IID_IShellFolder, (void **)&root);
+  result = isf->BindToObject(pidl, nullptr, IID_IShellFolder, (void **)&root);
   if (!check_result("BindToObject", result) || !root)
     return false;
   auto root_guard = qScopeGuard([root]() { root->Release(); });
