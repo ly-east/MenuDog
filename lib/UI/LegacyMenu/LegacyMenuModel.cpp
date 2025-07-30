@@ -1,6 +1,8 @@
 #include "UI/LegacyMenu/LegacyMenuModel.h"
+#include "UI/ContextMenuDialog/ContextMenuDialog.h"
 #include "ulog/ulog.h"
 #include <ShlObj.h>
+#include <Shobjidl.h>
 #include <shellapi.h>
 
 LegacyMenuModel::LegacyMenuModel(QObject *parent)
@@ -90,6 +92,7 @@ bool LegacyMenuModel::listPath() {
   result = isf->BindToObject(pidl, nullptr, IID_IShellFolder, (void **)&root);
   if (!check_result("BindToObject", result) || !root)
     return false;
+  // TODO: do not release until user selects other path or the program exits
   auto root_guard = qScopeGuard([root]() { root->Release(); });
 
   auto path_walker = [this, root](HWND handle, bool is_folder) {
@@ -110,12 +113,36 @@ bool LegacyMenuModel::listPath() {
       SHFILEINFOW info{};
       SHGetFileInfoW((LPCWSTR)pidl, 0, &info, sizeof(SHFILEINFOW),
                      SHGFI_PIDL | SHGFI_DISPLAYNAME | SHGFI_TYPENAME);
-      FileInfo fi{QString::fromWCharArray(info.szDisplayName)};
+      FileInfo fi{QString::fromWCharArray(info.szDisplayName), pidl};
       item_list.emplace_back(std::move(fi));
     }
   };
 
   path_walker(nullptr, true);
   path_walker(nullptr, false);
+
+  // demo: pop up context menu window for the last item
+
+  auto &fi = item_list.last();
+  ITEMIDLIST *selection[] = {fi.pidl};
+  unsigned reserved = 0;
+  IContextMenu *icm = nullptr;
+
+  // for single file: GetUIObjectOfFile
+  result = root->GetUIObjectOf(nullptr, 1, (LPCITEMIDLIST *)selection,
+                               IID_IContextMenu, &reserved, (void **)&icm);
+  if (!check_result("GetUIObjectOf", result) || !icm)
+    return false;
+
+  auto menu = CreatePopupMenu();
+  result = icm->QueryContextMenu(menu, 0, 1, 0x7ff, CMF_NORMAL | CMF_EXPLORE);
+  if (!check_result("QueryContextMenu", result))
+    // return false;
+    // TODO: result 162 should be ignored
+    ;
+
+  ContextMenuDialog cmd{menu, nullptr};
+  cmd.exec();
+
   return true;
 }

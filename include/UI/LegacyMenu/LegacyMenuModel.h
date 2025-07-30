@@ -5,6 +5,8 @@
 #include <QList>
 #include <QString>
 
+struct _ITEMIDLIST;
+
 class LegacyMenuModel : public QAbstractTableModel {
   Q_OBJECT
 
@@ -35,6 +37,7 @@ private:
 
   struct FileInfo {
     QString name;
+    _ITEMIDLIST *pidl;
   };
 
 private:
