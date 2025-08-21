@@ -1,17 +1,17 @@
 @startuml ShowContextMenu
 
 participant User
-participant UI
+participant MenuDog
 participant MenuFactory
 participant PathProvider
 participant IconProvider
 participant RegistryEditor
 
-User -> UI: Launch
-activate UI
+User -> MenuDog: Launch
+activate MenuDog
 
-User -> UI: Specify object path
-UI -> MenuFactory: getMenu
+User -> MenuDog: Specify object path
+MenuDog -> MenuFactory: getMenu
 activate MenuFactory
 
 MenuFactory -> PathProvider: getPIDL
@@ -23,19 +23,19 @@ MenuFactory -> IconProvider: getIcon
 activate IconProvider
 IconProvider -> MenuFactory: returns the handle of required icon
 
-MenuFactory -> UI: returns the\nhandle of menu
-UI -> UI: displayMenu
-UI -> User: Ready
+MenuFactory -> MenuDog: returns the\nhandle of menu
+MenuDog -> MenuDog: displayMenu
+MenuDog -> User: Ready
 
-User -> UI: Select reserved menu
-UI -> UI: Interactivity:\ncheckboxes, ...
+User -> MenuDog: Select reserved menu
+MenuDog -> MenuDog: Interactivity:\ncheckboxes, ...
 
-User -> UI: Commit
-UI -> RegistryEditor: Action
+User -> MenuDog: Commit
+MenuDog -> RegistryEditor: Action
 activate RegistryEditor
 
 RegistryEditor -> RegistryEditor: editContextMenu
-RegistryEditor -> UI: returns the result
-UI -> User: result
+RegistryEditor -> MenuDog: returns the result
+MenuDog -> User: result
 
 @enduml
