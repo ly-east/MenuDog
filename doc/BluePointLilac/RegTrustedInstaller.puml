@@ -1,0 +1,16 @@
+@startuml RegTrustedInstaller
+
+class NativeMethod {
++ const string TakeOwnership
++ const string Restore
++ static bool TrySetPrivilege(string sPrivilege, bool enablePrivilege)
+}
+
+class RegTrustedInstaller {
++ static void TakeRegKeyOwnerShip(string regPath)
++ static void TakeRegTreeOwnerShip(string regPath)
+}
+
+NativeMethod <-- RegTrustedInstaller
+
+@enduml
